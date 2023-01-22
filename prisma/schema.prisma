@@ -18,7 +18,7 @@ model Users {
   last_session DateTime
   created_at   DateTime    @default(now())
   update_at    DateTime    @updatedAt
-  date_born    DateTime
+  date_born    DateTime?
   Playlists    Playlists[]
 
   @@map("users")
@@ -29,7 +29,7 @@ model Songs {
   name      String
   artist    String
   album     String
-  year      String
+  year      Int
   genere    String
   duration  Int
   private   Boolean     @default(true)
