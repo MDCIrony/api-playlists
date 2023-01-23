@@ -1,6 +1,6 @@
 import express, { type Application } from "express";
 import type { Request, Response } from "express";
-import { usersRouter } from "./routers";
+import { usersRouter, playlistsRouter } from "./routers";
 
 
 //Instanciar express
@@ -11,13 +11,15 @@ const app: Application = express();
 app.use(express.json());
 
 
-//Ruta genérica/prueba
-app.get('/express-playlist/', async (req: Request, res: Response): Promise<void> => {
+//Ruta genérica/prueba --Borrar después
+app.get('/api/v1/', async (req: Request, res: Response): Promise<void> => {
     res.send('Hello World!')
   });
 
-app.use('/express-playlist/', usersRouter)
 
+//Implementación de Routers
+app.use('/api/v1/', usersRouter);
+app.use('/api/v1/', playlistsRouter);
 
 //Se exporta el APP para iniciar el servidor
 export default app;
