@@ -2,6 +2,9 @@ node_modules
 # Keep environment variables out of version control
 .env
 
+
+nohup.out
+
 # Local database
 prisma/dev.db
 
