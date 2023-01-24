@@ -9,7 +9,7 @@ const app: Application = express();
 
 //Habilitar la lectura del {req.Body}
 app.use(express.json());
-app.use("/api/v1/songs",rutaCanciones);
+
 
 app.use("/api/v1/songs",rutaCanciones)
 //Ruta genérica/prueba
