@@ -1,7 +1,7 @@
 import express, { type Application } from "express";
 import type { Request, Response } from "express";
 import { usersRouter, playlistsRouter } from "./routers";
-import rutaCanciones from "./components/song/index";
+import rutaCanciones from "./routers/songs/router";
 
 
 
