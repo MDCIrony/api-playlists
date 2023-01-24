@@ -9,9 +9,9 @@ const Controller = new playlistsController();
 
 
 //rutas
-// playlistsRouter.post('/playlist/', Controller.registerUser);//CrearPlaylist
+playlistsRouter.post('/playlist/', Controller.createPlaylist);//CrearPlaylist
 playlistsRouter.get('/playlist/', Controller.getAllPlaylists)//Todas las playlists
-// playlistsRouter.get('/playlist/:name', Controller.getAllUsers);//PlaylistUnica
+playlistsRouter.get('/playlist/:name', Controller.getUniquePlaylist);//PlaylistUnica
 
 
 //export
