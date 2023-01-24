@@ -69,10 +69,17 @@ export default class {
                 }
             });
 
-            res.status(200).json({
-                ok: true,
-                playlist
-            });
+            if (!playlist) {
+                res.status(404).json({
+                    ok: false,
+                    message: `The playlist ${name} doesn't exist`
+                })
+            } else {
+                res.status(200).json({
+                    ok: true,
+                    playlist
+                });
+            }
 
         } catch (error) {
             res.status(500).json({
