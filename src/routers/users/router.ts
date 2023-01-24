@@ -5,12 +5,12 @@ import { verifyToken } from "../../middlewares";
 
 //instancias
 const usersRouter: Router = Router();
-const Controller = new usersController()
+const Controller = new usersController();
 
 
-//rutas
+//Rutas
 usersRouter.post('/users/register', Controller.registerUser);//Registrar
-usersRouter.post('/users/login', Controller.loginUser)//Login
+usersRouter.post('/users/login', Controller.loginUser);//Login
 usersRouter.get('/users/list', Controller.getAllUsers);//DevolverUsuarios
 
 

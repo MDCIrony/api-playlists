@@ -1,34 +1,25 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Users } from "@prisma/client";
 import type { Request, Response } from "express";
 import * as jwt from "jsonwebtoken"
 import * as dotenv from "dotenv"
-import { match } from "assert";
+import { Account, Login } from "./interfaces";
 
+//.env
 dotenv.config();
+
+//Declaración de constantes y PC
 const SECRET_TOKEN: string = process.env.SECRET_TOKEN as string;
 
 const prisma = new PrismaClient();
 
+
+//Clase controlador
 export default class {
     public registerUser = async (req: Request, res: Response): Promise<void> => {
         try {
-            const {
-                name,
-                email,
-                password,
-                last_session,
-                date_born
-            } = req.body;
-            
-            const new_register = await prisma.users.create({
-                data: {
-                    name,
-                    email,
-                    password,
-                    last_session,
-                    date_born
-                }
-            });
+            const newUser = req.body as Account;
+
+            const new_register = await prisma.users.create({ data: newUser });
             
             res.status(201).json({
                 ok: true,
@@ -46,18 +37,18 @@ export default class {
 
     public loginUser = async (req: Request, res: Response): Promise<void> => {
         try {
-            const { email, password } = req.body;
+            const data = req.body as Login;
 
             const matchUser = await prisma.users.findUnique({
                 where:{
-                    email,
+                    email: data.email,
                 }
             });
 
-            if (!matchUser || matchUser.password != password) {
+            if (!matchUser || matchUser.password != data.password) {
                 res.status(401).json({ message: "User or password incorrect."});
             } else {
-                const token = jwt.sign({ email, password }, SECRET_TOKEN, {
+                const token = jwt.sign(data, SECRET_TOKEN, {
                     expiresIn: "1h"
                 });            
     
