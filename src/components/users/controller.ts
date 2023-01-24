@@ -39,22 +39,25 @@ export default class {
         try {
             const data = req.body as Login;
 
-            const matchUser = await prisma.users.findUnique({
+            const matchUser = await prisma.users.findMany({
                 where:{
-                    email: data.email,
+                    AND: [{
+                        email: data.email,
+                        password: data.password
+                    }]
                 }
             });
 
-            if (!matchUser || matchUser.password != data.password) {
+            if (matchUser.length === 0) {
                 res.status(401).json({ message: "User or password incorrect."});
             } else {
                 const token = jwt.sign(data, SECRET_TOKEN, {
                     expiresIn: "1h"
                 });            
-    
+
                 res.status(201).json({
                     ok: true,
-                    message: `Login successful. Welcome ${matchUser?.name}`,
+                    message: `Login successful. Welcome ${matchUser[0].name}`,
                     token
                 });
             };    
