@@ -71,7 +71,14 @@ export default class {
     
     public getAllUsers = async (req: Request, res: Response): Promise<void> => {
         try {
-            const users = await prisma.users.findMany();
+            const users = await prisma.users.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    last_session: true
+                }
+            });
     
             res.status(200).json({
                 ok: true,

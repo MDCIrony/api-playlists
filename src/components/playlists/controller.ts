@@ -8,33 +8,24 @@ export default class {
         try {
             const { name, user_id, songs} = req.body;
 
-            console.log("etapa1", name, user_id, songs);
-            console.log(songs[0]);
-
-            var songsArray = songs.map((i: number): any => {
-                return {id: i};
-            });
-            
-            console.log(songsArray);
-
-            
+            const songsArray: {id: number}[] = songs.map((i: number): {id: number} => ({id: i}));
 
             const playlist = await prisma.playlists.create({
                 data:{
                     name,
                     user_id,
                     songs: {
-                        connect: [{id: songs[0]}, {id: songs[1]}]
+                        connect: [...songsArray]
                     }
-                    // songs: {
-                    //     connect: {
-                    //         { songsArray }
-                    //     }
-                    // }
+                },
+                include:{
+                    songs: {
+                        select:{
+                            name: true
+                        }
+                    }
                 }
             });
-            console.log("etapa2", playlist);
-
 
             res.status(201).json({
                 ok: true,
