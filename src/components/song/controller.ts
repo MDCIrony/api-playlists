@@ -4,7 +4,7 @@ import { url } from "inspector";
 
 const prisma = new PrismaClient();
 
-export const getCanciones = async (req:Request, res:Response): Promise<void> =>{
+export const getSong = async (req:Request, res:Response): Promise<void> =>{
     try{
         const element = await prisma.songs.findMany();
 
@@ -23,11 +23,11 @@ export const getCanciones = async (req:Request, res:Response): Promise<void> =>{
         console.log(error)
     }
 
-}
+};
 
-export const postCanciones = async (req:Request, res:Response): Promise<void> =>{
+export const postSong = async (req:Request, res:Response): Promise<void> =>{
     try {
-        const data = req.body 
+        const data = req.body;
 
         const element = await prisma.songs.create({
             data: {
@@ -38,24 +38,22 @@ export const postCanciones = async (req:Request, res:Response): Promise<void> =>
                 genere: data.genere,
                 duration: data.duration
             }
-        })
+        });
 
         res.status(201).json({
             ok:true,
             results:element,
-        })
+        });
 
 
-    }
-
-    catch(error){
+    }catch(error){
         res.status(500).json({
             ok:false,
             message: error,
         });
         console.log(error)
-    }
-}
+    };
+};
 
 export const getIdSong = async (req: Request, res:Response) => {
     try{
@@ -69,18 +67,13 @@ export const getIdSong = async (req: Request, res:Response) => {
         res.status(200).json({
             ok:true,
             results: element
-        })
-
-
-    }
-
-
-    catch(error){
+        });
+    }catch(error){
         res.status(500).json({
             ok:false,
             message: error,
         });
         console.log(error)
-    }
+    };
 
-}
+};

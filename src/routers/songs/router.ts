@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { getCanciones, postCanciones, getIdSong} from "../../components/song/controller";
+import * as Controller from "../../components/song/controller";
 
-const rutaCanciones: Router = Router()
+const rutaCanciones: Router = Router();
 
-rutaCanciones.get('/',getCanciones)
-rutaCanciones.get('/:id',getIdSong)
-rutaCanciones.post('/',postCanciones)
+rutaCanciones.get('/songs/',Controller.getSong);
+rutaCanciones.get('/songs/:id',Controller.getIdSong);
+rutaCanciones.post('/songs/',Controller.postSong);
 
 
-export default rutaCanciones
+export default rutaCanciones;
