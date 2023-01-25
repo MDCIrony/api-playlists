@@ -11,11 +11,26 @@ export default class {
             console.log("etapa1", name, user_id, songs);
             console.log(songs[0]);
 
+            var songsArray = songs.map((i: number): any => {
+                return {id: i};
+            });
+            
+            console.log(songsArray);
+
+            
+
             const playlist = await prisma.playlists.create({
                 data:{
                     name,
                     user_id,
-                    songs: { connect: {id:songs}}
+                    songs: {
+                        connect: [{id: songs[0]}, {id: songs[1]}]
+                    }
+                    // songs: {
+                    //     connect: {
+                    //         { songsArray }
+                    //     }
+                    // }
                 }
             });
             console.log("etapa2", playlist);
@@ -38,7 +53,13 @@ export default class {
         try {
             const playlists = await prisma.playlists.findMany({
                 include:{
-                    user: true,
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true
+                        }
+                    },
                     songs: true
                 }
             });
@@ -59,17 +80,23 @@ export default class {
         try {
             const {name} = req.params;
 
-            const playlist = await prisma.playlists.findUnique({
+            const playlist = await prisma.playlists.findMany({
                 where:{
-                    name: name
+                    name
                 },
                 include: {
                     songs: true,
-                    user: true
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true
+                        }
+                    }
                 }
             });
 
-            if (!playlist) {
+            if (playlist.length == 0) {
                 res.status(404).json({
                     ok: false,
                     message: `The playlist ${name} doesn't exist`
@@ -79,7 +106,7 @@ export default class {
                     ok: true,
                     playlist
                 });
-            }
+            };
 
         } catch (error) {
             res.status(500).json({
@@ -87,10 +114,5 @@ export default class {
                 message: error
             });
         };
-    //     id      Int     @id @default(autoincrement())
-    //     name    String
-    //     user_id Int
-    //     user    Users   @relation(fields: [user_id], references: [id])
-    //     songs   Songs[]
-    }
-}
+    };
+};
