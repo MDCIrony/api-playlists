@@ -2,7 +2,7 @@
 
 ## Para ejecutar en local:
 ### 1- Instalar dependencias: ```npm install```
-### 2- Configurar .env (PORT; APP_NAME; DATABASE_URL; SECRET_TOKEN)
+### 2- Configurar .env (PORT; DATABASE_URL; SECRET_TOKEN)
 ### 3- Ejecutar las migraciones con prisma ```npx prisma migrate dev```
 ### 4- Ejecutar sv ```npm run dev``` 
 
