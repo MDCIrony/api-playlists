@@ -1,6 +1,11 @@
 # Proyecto: Express-playlist
+## Integrantes:
 
-## Para ejecutar en local:
+### Josue David Montenegro Salazar
+### Miguel Alejandro Díaz Castillo
+
+
+## Pasos para ejecutar en local:
 ### 1- Instalar dependencias: ```npm install```
 ### 2- Configurar .env (PORT; DATABASE_URL; SECRET_TOKEN)
 ### 3- Ejecutar las migraciones con prisma ```npx prisma migrate dev```
