@@ -21,7 +21,7 @@ app.get('/api/v1/', async (req: Request, res: Response): Promise<void> => {
 
 //Implementación de Routers
 app.use('/api/v1/', usersRouter);
-app.use("/api/v1/songs",rutaCanciones)
+app.use('/api/v1/', rutaCanciones)
 app.use('/api/v1/', playlistsRouter);
 
 //Se exporta el APP para iniciar el servidor
