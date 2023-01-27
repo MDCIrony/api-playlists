@@ -87,7 +87,7 @@ export default class {
         } catch (error) {
             res.status(500).json({
                 ok: false,
-                messagen: error
+                message: error
             })
         }
     };
