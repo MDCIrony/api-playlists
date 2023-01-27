@@ -1,9 +1,11 @@
 import { Router } from "express";
-import * as Controller from "../../components/song/controller";
+import { songController } from "../../components";
+
 import { verifyToken } from "../../middlewares";
 import { verifyTokenSongs } from "../../middlewares/jwt";
 
 const rutaCanciones: Router = Router();
+const Controller = new songController();
 
 rutaCanciones.get('/songs/', verifyTokenSongs ,Controller.getSong);
 rutaCanciones.get('/songs/:id', verifyTokenSongs, Controller.getIdSong);

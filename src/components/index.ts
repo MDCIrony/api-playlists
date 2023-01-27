@@ -1,2 +1,7 @@
-export { default as usersController } from "./users/controller"
-export { default as playlistsController } from "./playlists/controller"
+export { default as playlistController } from "./playlists/controller"
+
+
+export { default as songController } from "./song/controller"
+
+
+export { default as userController } from "./user/controller"

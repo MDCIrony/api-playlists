@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id           Int         @id @default(autoincrement())
   name         String?
   email        String      @unique
@@ -19,12 +19,12 @@ model Users {
   created_at   DateTime    @default(now())
   update_at    DateTime    @updatedAt
   date_born    DateTime?
-  Playlists    Playlists[]
+  Playlists    Playlist[]
 
-  @@map("users")
+  @@map("user")
 }
 
-model Songs {
+model Song {
   id        Int         @id @default(autoincrement())
   name      String
   artist    String
@@ -33,17 +33,17 @@ model Songs {
   genere    String
   duration  Int
   private   Boolean     @default(true)
-  playlists Playlists[]
+  playlists Playlist[]
 
-  @@map("songs")
+  @@map("song")
 }
 
-model Playlists {
+model Playlist {
   id      Int     @id @default(autoincrement())
   name    String @unique
   user_id Int
-  user    Users   @relation(fields: [user_id], references: [id])
-  songs   Songs[]
+  user    User   @relation(fields: [user_id], references: [id])
+  songs   Song[]
 
-  @@map("playlists")
+  @@map("playlist")
 }
