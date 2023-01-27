@@ -1,4 +1,4 @@
-import { PrismaClient, Users } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import type { Request, Response } from "express";
 import * as jwt from "jsonwebtoken"
 import * as dotenv from "dotenv"
@@ -19,7 +19,7 @@ export default class {
         try {
             const newUser = req.body as Account;
 
-            const new_register = await prisma.users.create({ data: newUser });
+            const new_register = await prisma.user.create({ data: newUser });
             
             res.status(201).json({
                 ok: true,
@@ -39,7 +39,7 @@ export default class {
         try {
             const data = req.body as Login;
 
-            const matchUser = await prisma.users.findMany({
+            const matchUser = await prisma.user.findMany({
                 where:{
                     AND: [{
                         email: data.email,
@@ -71,7 +71,7 @@ export default class {
     
     public getAllUsers = async (req: Request, res: Response): Promise<void> => {
         try {
-            const users = await prisma.users.findMany({
+            const users = await prisma.user.findMany({
                 select: {
                     id: true,
                     name: true,

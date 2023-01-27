@@ -1,4 +1,4 @@
-import { Playlists, Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import type { Request, Response } from "express";
 
 const prisma = new PrismaClient();
@@ -10,7 +10,7 @@ export default class {
 
             const songsArray: {id: number}[] = songs.map((i: number): {id: number} => ({id: i}));
 
-            const playlist = await prisma.playlists.create({
+            const playlist = await prisma.playlist.create({
                 data:{
                     name,
                     user_id,
@@ -42,7 +42,7 @@ export default class {
 
     public getAllPlaylists = async (req: Request, res: Response): Promise<void> => {
         try {
-            const playlists = await prisma.playlists.findMany({
+            const playlists = await prisma.playlist.findMany({
                 include:{
                     user: {
                         select: {
@@ -71,7 +71,7 @@ export default class {
         try {
             const {name} = req.params;
 
-            const playlist = await prisma.playlists.findMany({
+            const playlist = await prisma.playlist.findMany({
                 where:{
                     name
                 },
