@@ -1,18 +1,19 @@
 import { Router } from "express";
 import { playlistController } from "../../components";
-import { verifyToken } from "../../middlewares";
+import Middlewares from "../../middlewares";
 
 
-//instancias
-const playlistsRouter: Router = Router();
+//Instancias
+const playlistRouter: Router = Router();
 const Controller = new playlistController();
+const Middleware = new Middlewares();
 
 
-//rutas
-playlistsRouter.post('/playlist/', verifyToken, Controller.createPlaylist);//CrearPlaylist
-playlistsRouter.get('/playlist/',verifyToken, Controller.getAllPlaylists)//Todas las playlists
-playlistsRouter.get('/playlist/:name',verifyToken, Controller.getUniquePlaylist);//PlaylistUnica
+//Rutas
+playlistRouter.post('/playlist/', Middleware.verifyToken, Controller.createPlaylist);//CrearPlaylist
+playlistRouter.get('/playlist/',Middleware.verifyToken, Controller.getAllPlaylists)//Todas las playlists
+playlistRouter.get('/playlist/:name',Middleware.verifyToken, Controller.getUniquePlaylist);//PlaylistUnica
 
 
-//export
-export default playlistsRouter;
+//Export
+export default playlistRouter;

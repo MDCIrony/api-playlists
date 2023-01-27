@@ -1,15 +1,19 @@
 import { Router } from "express";
 import { songController } from "../../components";
+import Middlewares from "../../middlewares";
 
-import { verifyToken } from "../../middlewares";
-import { verifyTokenSongs } from "../../middlewares/jwt";
 
-const rutaCanciones: Router = Router();
+//Instancias
+const songRouter: Router = Router();
 const Controller = new songController();
-
-rutaCanciones.get('/songs/', verifyTokenSongs ,Controller.getSong);
-rutaCanciones.get('/songs/:id', verifyTokenSongs, Controller.getIdSong);
-rutaCanciones.post('/songs/', verifyToken, Controller.postSong);
+const Middleware = new Middlewares();
 
 
-export default rutaCanciones;
+//Rutas
+songRouter.get('/songs/', Middleware.verifyTokenSongs ,Controller.getSong);
+songRouter.get('/songs/:id', Middleware.verifyTokenSongs, Controller.getIdSong);
+songRouter.post('/songs/', Middleware.verifyToken, Controller.postSong);
+
+
+//Export
+export default songRouter;

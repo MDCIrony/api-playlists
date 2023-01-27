@@ -1,12 +1,15 @@
 import express, { type Application } from "express";
 import type { Request, Response } from "express";
-import { usersRouter, playlistsRouter } from "./routers";
-import rutaCanciones from "./routers/songs/router";
+import * as Router from "./routers";
 import path from "path";
-//swaggerdoc
+
+
+//Swagger imports
 import * as swaggerUi from 'swagger-ui-express';
 import swaggerjsdoc from 'swagger-jsdoc';
 
+
+//Swagger options
 const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
@@ -41,16 +44,18 @@ app.use('/api/docs',
 );//Para la documentación
 
 
+
+//* ********** RUTAS ********** *//
+
 //Ruta de saludo y funcionamiento
-app.get('/api/v1/', async (req: Request, res: Response): Promise<void> => {
-    res.send('Hello World!')
-});
+app.get('/api/v1/', async (req: Request, res: Response): Promise<void> => { res.send('Hello World!') });
 
 
 //Implementación de Routers
-app.use('/api/v1/', usersRouter);
-app.use('/api/v1/', rutaCanciones)
-app.use('/api/v1/', playlistsRouter);
+app.use('/api/v1/', Router.usersRouter);
+app.use('/api/v1/', Router.songRouter)
+app.use('/api/v1/', Router.playlistsRouter);
+
 
 //Se exporta el APP para iniciar el servidor
 export default app;

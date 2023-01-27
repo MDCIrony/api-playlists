@@ -1,4 +1,4 @@
-import { PrismaClient, Users } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import type { Request, Response } from "express";
 import * as jwt from "jsonwebtoken"
 import * as dotenv from "dotenv"

@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { userController } from "../../components";
-import { verifyToken } from "../../middlewares";
+import Middlewares from "../../middlewares";
 
 
-//instancias
-const usersRouter: Router = Router();
+//Instancias
+const userRouter: Router = Router();
 const Controller = new userController();
+const Middleware = new Middlewares();
 
 
 //Rutas
@@ -19,11 +20,14 @@ const Controller = new userController();
  * 
  * 
  */
-usersRouter.post('/users/register', Controller.registerUser);//Registrar
-usersRouter.post('/users/login', Controller.loginUser);//Login
-usersRouter.get('/users/list', verifyToken, Controller.getAllUsers);//DevolverUsuarios
+
+
+//Rutas
+userRouter.post('/users/register', Controller.registerUser);//Registrar
+userRouter.post('/users/login', Controller.loginUser);//Login
+userRouter.get('/users/list', Middleware.verifyToken, Controller.getAllUsers);//DevolverUsuarios
 
 
 
-//export
-export default usersRouter;
+//Export
+export default userRouter;
